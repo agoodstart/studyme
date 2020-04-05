@@ -1,0 +1,7 @@
+https://github.com/cloudwebrtc
+https://pub.dev/packages/flutter_webrtc
+https://flutter.github.io/gallery/#/
+https://blog.criarsolutions.com/flutter-handling-video-calls-using-plugins-9dbd9a336bfe
+https://flutterawesome.com/
+https://flutterx.com/
+https://itsallwidgets.com/
