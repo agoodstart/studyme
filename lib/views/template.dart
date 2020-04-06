@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-// import 'components/appbar.dart';
+import '../controller/home_controller.dart';
+import 'package:mvc_pattern/mvc_pattern.dart';
 // import 'package:flutter_webrtc/webrtc.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -17,7 +18,7 @@ class _MyHomePageState extends State<MyHomePage> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
         RaisedButton(
-          onPressed: () {},
+          onPressed: _login,
           child: const Text(
             'Sign in',
             style: TextStyle(fontSize: 20)
@@ -52,11 +53,11 @@ class _MyHomePageState extends State<MyHomePage> {
             boxShadow: [
               BoxShadow(
                 color: Colors.black26,
-                blurRadius: 5.0,
-                spreadRadius: 1.0,
+                blurRadius: 3.0,
+                spreadRadius: 0.0,
                 offset: Offset(
                   0.0,
-                  2.5
+                  1.5
                 )
               )
             ]
