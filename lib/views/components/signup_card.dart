@@ -1,17 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:studyme/controller/auth_controller.dart';
 import 'package:studyme/views/authenticate.dart';
 
-class SignUp extends StatelessWidget {
-  final AuthenticateState parent;
+class SignUp extends StatefulWidget {
 
-  SignUp(this.parent);
+  final double screenHeight;
+  final Function changeAuthMode;
+
+  SignUp({this.screenHeight, this.changeAuthMode});
+
+  @override
+  _SignUpState createState() => _SignUpState();
+}
+
+class _SignUpState extends State<SignUp> {
+
+  final AuthService _auth = AuthService();
+  final _formKey = GlobalKey<FormState>();
+
+  String name = '';
+  String email = '';
+  String password = '';
+  String error = '';
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
         Container(
-          margin: EdgeInsets.only(top: this.parent.screenHeight / 5),
+          margin: EdgeInsets.only(top: widget.screenHeight / 5),
           padding: EdgeInsets.only(left: 10, right: 10),
           child: Card(
             shape: RoundedRectangleBorder(
@@ -20,7 +37,9 @@ class SignUp extends StatelessWidget {
             elevation: 8,
             child: Padding(
               padding: const EdgeInsets.all(30.0),
-              child: Column(
+              child: Form(
+                key: _formKey,
+                child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
                   Align(
@@ -40,6 +59,10 @@ class SignUp extends StatelessWidget {
                   TextFormField(
                     decoration: InputDecoration(
                         labelText: "Your Name", hasFloatingPlaceholder: true),
+                    validator: (val) => val.isEmpty ? 'Enter a name' : null,
+                    onChanged: (val) {
+                      setState(() => name = val);
+                    },
                   ),
                   SizedBox(
                     height: 15,
@@ -47,6 +70,10 @@ class SignUp extends StatelessWidget {
                   TextFormField(
                     decoration: InputDecoration(
                         labelText: "Your Email", hasFloatingPlaceholder: true),
+                    validator: (val) => val.isEmpty ? 'Enter an email' : null,
+                    onChanged: (val) {
+                      setState(() => email = val);
+                    },
                   ),
                   SizedBox(
                     height: 20,
@@ -54,6 +81,11 @@ class SignUp extends StatelessWidget {
                   TextFormField(
                     decoration: InputDecoration(
                         labelText: "Password", hasFloatingPlaceholder: true),
+                    obscureText: true,
+                    validator: (val) => val.length < 6 ? 'Enter a password 6+ chars long' : null,
+                    onChanged: (val) {
+                      setState(() => password = val);
+                    },
                   ),
                   SizedBox(
                     height: 20,
@@ -79,11 +111,19 @@ class SignUp extends StatelessWidget {
                             left: 38, right: 38, top: 15, bottom: 15),
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(5)),
-                        onPressed: () {},
+                        onPressed: () async {
+                          if(_formKey.currentState.validate()) {
+                            dynamic result = await _auth.registerUser(email, password);
+                            if(result == null) {
+                              setState(() => error = 'Please provide valid inputs.');
+                            }
+                          }
+                        },
                       ),
                     ],
                   ),
                 ],
+              ),
               ),
             ),
           ),
@@ -101,7 +141,7 @@ class SignUp extends StatelessWidget {
             ),
             FlatButton(
               onPressed: () {
-                this.parent.changeAuthMode(AuthMode.LOGIN);
+                widget.changeAuthMode(AuthMode.LOGIN);
               },
               textColor: Colors.black87,
               child: Text("Login"),

@@ -2,19 +2,29 @@ import 'package:flutter/material.dart';
 import 'package:studyme/controller/auth_controller.dart';
 import 'package:studyme/views/authenticate.dart';
 
-class SignIn extends StatelessWidget {
-  final AuthenticateState parent;
-  final AuthService _auth = AuthService();
+class SignIn extends StatefulWidget {
 
-  SignIn(this.parent);
+  final double screenHeight;
+  final Function changeAuthMode;
+
+  SignIn({this.screenHeight, this.changeAuthMode});
+
+  @override
+  _SignInState createState() => _SignInState();
+}
+
+class _SignInState extends State<SignIn> {
+
+  final AuthService _auth = AuthService();
+  String email = '';
+  String password = '';
 
   @override
   Widget build(BuildContext context) {
-
     return Column(
       children: <Widget>[
         Container(
-          margin: EdgeInsets.only(top: this.parent.screenHeight / 4),
+          margin: EdgeInsets.only(top: widget.screenHeight / 4),
           padding: EdgeInsets.only(left: 10, right: 10),
           child: Card(
             shape: RoundedRectangleBorder(
@@ -45,7 +55,7 @@ class SignIn extends StatelessWidget {
                     decoration: InputDecoration(
                         labelText: "Your Email", hasFloatingPlaceholder: true),
                     onChanged: (val) {
-                      this.parent.setEmailState(val);
+                      setState(() => email = val);
                     },
                   ),
                   SizedBox(
@@ -56,7 +66,7 @@ class SignIn extends StatelessWidget {
                         labelText: "Password", hasFloatingPlaceholder: true),
                     obscureText: true,
                     onChanged: (val) {
-                      this.parent.setPasswordState(val);
+                      setState(() => password = val);
                     },
                   ),
                   SizedBox(
@@ -102,8 +112,8 @@ class SignIn extends StatelessWidget {
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(5)),
                         onPressed: () async {
-                          print(this.parent.email);
-                          print(this.parent.password);
+                          print(email);
+                          print(password);
                         },
                       )
                     ],
@@ -127,7 +137,7 @@ class SignIn extends StatelessWidget {
             ),
             FlatButton(
               onPressed: () {
-                this.parent.changeAuthMode(AuthMode.SINGUP);
+                widget.changeAuthMode(AuthMode.SINGUP);
               },
               textColor: Colors.black87,
               child: Text("Create Account"),

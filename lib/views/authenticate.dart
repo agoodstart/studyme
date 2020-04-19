@@ -12,9 +12,6 @@ class Authenticate extends StatefulWidget {
 }
 
 class AuthenticateState extends State<Authenticate> {
-  String email = '';
-  String password = '';
-
   double screenHeight;
   AuthMode authMode = AuthMode.LOGIN;
 
@@ -30,8 +27,8 @@ class AuthenticateState extends State<Authenticate> {
             lowerHalf(context),
             upperHalf(context),
             authMode == AuthMode.LOGIN
-              ? SignIn(this)
-              : SignUp(this),
+              ? SignIn(screenHeight: screenHeight, changeAuthMode: changeAuthMode)
+              : SignUp(screenHeight: screenHeight, changeAuthMode: changeAuthMode),
             PageTitle().pagetitle()
           ],
         ),
@@ -63,14 +60,6 @@ class AuthenticateState extends State<Authenticate> {
     setState(() {
       authMode = changedAuth;
     });
-  }
-
-  void setEmailState(String val) {
-    setState(() => email = val);
-  }
-
-  void setPasswordState(String val) {
-    setState(() => password = val);
   }
 }
 
