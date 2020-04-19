@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "791551842118",
+    "firebase_url": "https://studyme-bfbe4.firebaseio.com",
+    "project_id": "studyme-bfbe4",
+    "storage_bucket": "studyme-bfbe4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:791551842118:android:5bf456a7b09668fff7f747",
+        "android_client_info": {
+          "package_name": "com.example.studyme"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "791551842118-shssk84mrq1n0n4c91f317hpnpstdp50.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC4Dg1HHfaj7mOft5dBTuxM9d3UOfb5phY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "791551842118-shssk84mrq1n0n4c91f317hpnpstdp50.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
