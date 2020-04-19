@@ -1,20 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:studyme/controller/auth_controller.dart';
 import 'package:studyme/views/authenticate.dart';
 
-class SignIn extends StatelessWidget {
+class SignUp extends StatelessWidget {
   final AuthenticateState parent;
-  final AuthService _auth = AuthService();
 
-  SignIn(this.parent);
+  SignUp(this.parent);
 
   @override
   Widget build(BuildContext context) {
-
     return Column(
       children: <Widget>[
         Container(
-          margin: EdgeInsets.only(top: this.parent.screenHeight / 4),
+          margin: EdgeInsets.only(top: this.parent.screenHeight / 5),
           padding: EdgeInsets.only(left: 10, right: 10),
           child: Card(
             shape: RoundedRectangleBorder(
@@ -23,14 +20,13 @@ class SignIn extends StatelessWidget {
             elevation: 8,
             child: Padding(
               padding: const EdgeInsets.all(30.0),
-              child: Form(
-                child: Column(
+              child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
                   Align(
                     alignment: Alignment.topLeft,
                     child: Text(
-                      "Login",
+                      "Create Account",
                       style: TextStyle(
                         color: Colors.black,
                         fontSize: 28,
@@ -43,10 +39,14 @@ class SignIn extends StatelessWidget {
                   ),
                   TextFormField(
                     decoration: InputDecoration(
+                        labelText: "Your Name", hasFloatingPlaceholder: true),
+                  ),
+                  SizedBox(
+                    height: 15,
+                  ),
+                  TextFormField(
+                    decoration: InputDecoration(
                         labelText: "Your Email", hasFloatingPlaceholder: true),
-                    onChanged: (val) {
-                      this.parent.setEmailState(val);
-                    },
                   ),
                   SizedBox(
                     height: 20,
@@ -54,63 +54,37 @@ class SignIn extends StatelessWidget {
                   TextFormField(
                     decoration: InputDecoration(
                         labelText: "Password", hasFloatingPlaceholder: true),
-                    obscureText: true,
-                    onChanged: (val) {
-                      this.parent.setPasswordState(val);
-                    },
                   ),
                   SizedBox(
                     height: 20,
                   ),
+                  Text(
+                    "Password must be at least 8 characters and include a special character and number",
+                    style: TextStyle(color: Colors.grey),
+                  ),
+                  SizedBox(
+                    height: 5,
+                  ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: <Widget>[
-                      MaterialButton(
-                        onPressed: () {},
-                        child: Text("Forgot Password ?"),
-                      ),
-                      Expanded(
-                        child: Container(),
-                      ),
-                      // FlatButton(
-                      //   child: Text("Login anonymously"),
-                      //   color: Color(0xFF4B9DFE),
-                      //   textColor: Colors.white,
-                      //   padding: EdgeInsets.only(
-                      //       left: 38, right: 38, top: 15, bottom: 15),
-                      //   shape: RoundedRectangleBorder(
-                      //       borderRadius: BorderRadius.circular(5)),
-                      //   onPressed: () async{
-                      //     dynamic result = await _auth.signInAnom();
-                      //     if(result == null) {
-                      //       print('error signing in');
-                      //     } else {
-                      //       print('signed in');
-                      //       print(result.uid);
-                      //     }
-                      //   },
-                      // ),
                       Expanded(
                         child: Container(),
                       ),
                       FlatButton(
-                        child: Text("Login"),
+                        child: Text("Sign Up"),
                         color: Color(0xFF4B9DFE),
                         textColor: Colors.white,
                         padding: EdgeInsets.only(
                             left: 38, right: 38, top: 15, bottom: 15),
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(5)),
-                        onPressed: () async {
-                          print(this.parent.email);
-                          print(this.parent.password);
-                        },
-                      )
+                        onPressed: () {},
+                      ),
                     ],
-                  )
+                  ),
                 ],
               ),
-              )
             ),
           ),
         ),
@@ -122,18 +96,30 @@ class SignIn extends StatelessWidget {
               height: 40,
             ),
             Text(
-              "Don't have an account ?",
+              "Already have an account?",
               style: TextStyle(color: Colors.grey),
             ),
             FlatButton(
               onPressed: () {
-                this.parent.changeAuthMode(AuthMode.SINGUP);
+                this.parent.changeAuthMode(AuthMode.LOGIN);
               },
               textColor: Colors.black87,
-              child: Text("Create Account"),
+              child: Text("Login"),
             )
           ],
-        )
+        ),
+        Align(
+          alignment: Alignment.bottomCenter,
+          child: FlatButton(
+            child: Text(
+              "Terms & Conditions",
+              style: TextStyle(
+                color: Colors.grey,
+              ),
+            ),
+            onPressed: () {},
+          ),
+        ),
       ],
     );
   }
